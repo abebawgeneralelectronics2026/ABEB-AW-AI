@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>ABEB AW AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#101827;
+ color:white;
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+}
+.app{
+ width:100%;
+ max-width:600px;
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+ padding:18px;
+}
+header{text-align:center;padding:20px 0}
+header h1{color:#e6b84a;margin:5px}
+header p{color:#b9c3d2;font-size:14px}
+#chat{
+ flex:1;
+ overflow-y:auto;
+ padding:10px 0;
+}
+.message{
+ padding:13px;
+ border-radius:14px;
+ margin:10px 0;
+ line-height:1.5;
+ white-space:pre-wrap;
+}
+.bot{background:#1e2b40}
+.user{background:#344967;margin-left:35px}
+.controls{
+ display:flex;
+ gap:8px;
+ padding:12px 0;
+}
+input{
+ flex:1;min-width:0;
+ padding:14px;
+ border-radius:12px;
+ border:1px solid #52647c;
+ background:#1e2b40;
+ color:white;
+ font-size:16px;
+}
+button{
+ border:0;border-radius:12px;
+ padding:12px;
+ background:#e6b84a;
+ color:#101827;
+ font-weight:bold;
+ cursor:pointer;
+}
+#speak{background:#344967;color:white}
+footer{text-align:center;color:#8492a6;font-size:12px;padding:10px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<h1>ABEB AW AI</h1>
+<p>Your assistant. Your choices. Your control.</p>
+</header>
+
+<div id="chat">
+<div class="message bot">
+Hello! I am ABEB AW AI, created by Abebaw.
+How can I help you today?
+</div>
+</div>
+
+<div class="controls">
+<input id="message" placeholder="Type your message..." />
+<button id="send">Send</button>
+<button id="speak">🔊</button>
+</div>
+
+<footer>ABEB AW AI • Your assistant, your choices</footer>
+</div>
+
+<script>
+const API = "https://abeb-aw-ai-brain.jacksonabebe98.workers.dev";
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("message");
+
+function addMessage(text, type) {
+ const div = document.createElement("div");
+ div.className = "message " + type;
+ div.textContent = text;
+ chat.appendChild(div);
+ chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendMessage() {
+ const message = input.value.trim();
+ if (!message) return;
+
+ addMessage(message, "user");
+ input.value = "";
+
+ const loading = document.createElement("div");
+ loading.className = "message bot";
+ loading.textContent = "Thinking...";
+ chat.appendChild(loading);
+
+ try {
+  const response = await fetch(API, {
+   method: "POST",
+   headers: {"Content-Type":"application/json"},
+   body: JSON.stringify({message:message})
+  });
+
+  const data = await response.json();
+  loading.textContent = data.reply || data.response || data.error || "No response received.";
+
+ } catch(error) {
+  loading.textContent = "Connection error. Please check your internet connection.";
+ }
+}
+
+document.getElementById("send").onclick = sendMessage;
+
+input.addEventListener("keydown", function(e) {
+ if (e.key === "Enter") sendMessage();
+});
+
+document.getElementById("speak").onclick = function() {
+ const messages = chat.querySelectorAll(".bot");
+ const last = messages[messages.length - 1];
+ if (!last) return;
+
+ speechSynthesis.cancel();
+ const speech = new SpeechSynthesisUtterance(last.textContent);
+ speech.lang = "en-US";
+ speechSynthesis.speak(speech);
+};
+</script>
+</body>
+</html>
