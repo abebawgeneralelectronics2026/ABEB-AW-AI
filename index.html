@@ -140,6 +140,17 @@
 
   <script src="script.js"></script>
 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(() => console.log("ABEB AW AI service worker registered"))
+      .catch((error) => console.error("Service worker error:", error));
+  });
+}
+</script>
+
 </body>
 
 </html>
