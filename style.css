@@ -1,0 +1,165 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 20px;
+  background: #101522;
+  color: white;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 25px 10px;
+  border-bottom: 2px solid #d4af37;
+}
+
+header h1 {
+  color: #d4af37;
+  font-size: 32px;
+}
+
+header p {
+  color: #ccc;
+  margin: 8px 0;
+}
+
+#connection-status {
+  color: #42d392;
+  font-size: 13px;
+}
+
+main {
+  max-width: 750px;
+  margin: 30px auto;
+}
+
+#ai-chat {
+  background: #172033;
+  color: white;
+  padding: 22px;
+  border-radius: 15px;
+  border: 1px solid #d4af37;
+}
+
+#ai-chat h2,
+#ai-chat h3 {
+  color: #d4af37;
+  text-align: center;
+}
+
+#ai-chat h2 {
+  margin-bottom: 22px;
+}
+
+#ai-chat h3 {
+  margin-bottom: 12px;
+}
+
+#ai-language,
+#ai-message {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #101522;
+  color: white;
+  font-size: 16px;
+}
+
+#ai-message {
+  min-height: 110px;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+}
+
+#ai-response {
+  padding: 15px;
+  min-height: 100px;
+  background: #101522;
+  border-radius: 10px;
+  margin: 15px 0;
+  border-left: 3px solid #d4af37;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.button {
+  background: #d4af37;
+  color: #111;
+  padding: 13px 17px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.button:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.send-button {
+  background: #42d392;
+}
+
+.speak-button {
+  background: #3989db;
+  color: white;
+}
+
+#ai-status {
+  color: #bbb;
+  font-size: 13px;
+  margin-top: 15px;
+  white-space: pre-line;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #999;
+  font-size: 13px;
+}
+
+@media (max-width: 500px) {
+
+  body {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 26px;
+  }
+
+  #ai-chat {
+    padding: 15px;
+  }
+
+  .button {
+    flex: 1 1 40%;
+  }
+
+}
